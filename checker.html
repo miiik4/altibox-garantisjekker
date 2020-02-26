@@ -31,8 +31,8 @@
         var serial = document.getElementById('serial').value
         serial = serial.toUpperCase()
 
-        if(serial.length != 20 || serial.length != 13){
-            alert('Dette ser ikke ut som et serienummer: '+serial)
+        if(serial.length != 20 && serial.length != 13){
+            alert('Dette ser ikke ut som et gyldig serienummer: '+serial)
             return false
         }
 
@@ -75,6 +75,8 @@
             } else {
                 document.getElementById('info').innerHTML = "Dekoderen er produsert: <b>"+q22Month+"/"+q22Year+"</b> og er <b>utenfor</b> garantien."
             }
+
+            return
         }
         
         // Serienummeret for hjemmesentraler er 13 symboler langt
@@ -97,6 +99,8 @@
             } else {
                 document.getElementById('info').innerHTML = "Hjemmesentralen er produsert: <b>"+hsMonth+"/"+hsYear+"</b> og er <b>utenfor</b> garantien."
             }
+
+            return
         }
         
         // legger til i loggen
