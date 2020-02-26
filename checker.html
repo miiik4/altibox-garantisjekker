@@ -1,0 +1,41 @@
+<style>
+    html, body { margin: 0; font-family: Arial, Helvetica, sans-serif;}
+    .container { padding: 10px 30px 10px 30px; max-width: 600px; }
+    input { padding: 10px; }
+    #serial { width: 85%; }
+    #submit { width: calc(15% - 5px); }
+</style>
+
+<div class="container">
+    <h2>Garantisjekker for dekodere og hjemmesentraler</h2>
+    <p>Finn strekkoden som inneholder <b>serienummeret</b> på baksiden av dekoderen eller hjemmesentralen.</p>
+    <input type="text" name="serial" id="serial" placeholder="Fyll inn, eller scann serienummeret her.." />
+    <input type="submit" name="submit" id="submit" value="Sjekk" onClick="checker()" />
+    <p id="log">
+
+    </p>
+</div>
+
+<script type="text/javascript">
+
+    // passer på at serial input blir valgt etter siden laster inn
+    window.onload = () => {
+        document.getElementById('serial').focus()
+    }
+
+    // checker function
+    function checker(){
+        var serial = document.getElementById('serial').value
+
+        // legger til i loggen
+        if(document.getElementsByTagName('br').length < 10){
+            var log = document.getElementById('log').innerHTML
+            log = serial+'<br/>'+log
+            document.getElementById('log').innerHTML = log
+        } else {
+            // midlertidig løsning
+            document.getElementById('log').innerHTML = ''
+        }
+    }
+
+</script>
