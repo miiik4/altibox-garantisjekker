@@ -11,9 +11,8 @@
     <p>Finn strekkoden som inneholder <b>serienummeret</b> på baksiden av dekoderen eller hjemmesentralen.</p>
     <input type="text" name="serial" id="serial" placeholder="Fyll inn, eller scann serienummeret her.." />
     <input type="submit" name="submit" id="submit" value="Sjekk" onClick="checker()" />
-    <p id="log">
-
-    </p>
+    <p id="info"></p>
+    <p id="history"></p>
 </div>
 
 <script type="text/javascript">
@@ -25,35 +24,83 @@
 
     // checker function
     function checker(){
+
+        var today = new Date()
+
         var serial = document.getElementById('serial').value
+        serial = serial.toUpperCase()
 
-        if(serial.length > 10){
-            alert('Dette ser ikke ut som et serienummer: '+serial)
-            return false
+        // if(serial.length != 20 || serial.length != 13){
+        //     alert('Dette ser ikke ut som et serienummer: '+serial)
+        //     return false
+        // }
+
+        // Q22 serienummere er 20 symboler langt
+        if(serial.length == 20){
+
+            // 'letters to years' for å konvertere del av serienummer til år
+            const l2y = []
+            l2y['H'] = 2017
+            l2y['J'] = 2018
+            l2y['K'] = 2019
+            l2y['L'] = 2020
+            l2y['M'] = 2021
+
+            // 'number to month' for å konvertere del av serienummer til måned
+            const n2m = []
+            n2m['A'] = 10
+            n2m['B'] = 11
+            n2m['C'] = 12
+
+            // Q22 serienummer konvertert til år og månded
+            var q22Year = serial.substring(12, 13)
+            q22Year = l2y[q22Year]
+
+            var q22Month = serial.substring(13, 14) 
+            if(isNaN(q22Month)){
+                q22Month = n2m[q22Month]
+            }
+
+            // Q22 produksjonsdato minus en mnd for å ta høyde for at jan er 0
+            q22 = new Date(q22Year, q22Month-1, 01)
+
+            // regner ut differansen og konverterer det til år
+            var diff = today - q22
+            diff = diff / (1000 * 3600 * 24 * 365)
+
+            if (diff < 2){
+                document.getElementById('info').innerHTML = "Dekoderen er produsert: <b>"+q22Month+"/"+q22Year+"</b> og er innenfor garantien."
+            } else {
+                document.getElementById('info').innerHTML = "Dekoderen er produsert: <b>"+q22Month+"/"+q22Year+"</b> og er <b>utenfor</b> garantien."
+            }
         }
+        
+        // Serienummeret for hjemmesentraler er 13 symboler langt
+        if(serial.length == 13){
 
+            var hsYear = serial.substring(1, 2)
+            var hsMonth = serial.substring(5, 6)
+
+            hs = new Date(hsYear, hsMonth-1, 01)
+            var diff = today - hs
+
+            diff = diff / (1000 * 3600 * 24 * 365)
+
+            if (diff < 2){
+                document.getElementById('info').innerHTML = "Hjemmesentralen er produsert: <b>"+hsMonth+"/20"+hsYear+"</b> og er innenfor garantien."
+            } else {
+                document.getElementById('info').innerHTML = "Hjemmesentralen er produsert: <b>"+hsMonth+"/"+hsYear+"</b> og er <b>utenfor</b> garantien."
+            }
+        }
+        
         // legger til i loggen
         if(document.getElementsByTagName('br').length < 10){
-            var log = document.getElementById('log').innerHTML
-            log = serial+'<br/>'+log
-            document.getElementById('log').innerHTML = log
+            var history = document.getElementById('history').innerHTML
+            history = serial+'<br/>'+history
+            document.getElementById('history').innerHTML = history
         } else {
             // midlertidig løsning når over 10 serienummer
-            document.getElementById('log').innerHTML = ''
-        }
-
-        // 'letters to years' for å konvertere del av serienummer til år
-        const l2y = {
-            'H': 2017,
-            'J': 2018,
-            'K': 2019,
-            'L': 2020,
-            'M': 2021
-        }
-
-        // 'number to month' for å konvertere del av serienummer til måned
-        const n2m = {
-            1: 1, 2: 2, 3: 3, 4: 4, 5: 5, 6: 6, 7: 7, 8: 8, 9: 9, 'A': 10, 'B': 11, 'C': 12
+            document.getElementById('history').innerHTML = ''
         }
 
     }
