@@ -27,15 +27,35 @@
     function checker(){
         var serial = document.getElementById('serial').value
 
+        if(serial.length > 10){
+            alert('Dette ser ikke ut som et serienummer: '+serial)
+            return false
+        }
+
         // legger til i loggen
         if(document.getElementsByTagName('br').length < 10){
             var log = document.getElementById('log').innerHTML
             log = serial+'<br/>'+log
             document.getElementById('log').innerHTML = log
         } else {
-            // midlertidig løsning
+            // midlertidig løsning når over 10 serienummer
             document.getElementById('log').innerHTML = ''
         }
+
+        // 'letters to years' for å konvertere del av serienummer til år
+        const l2y = {
+            'H': 2017,
+            'J': 2018,
+            'K': 2019,
+            'L': 2020,
+            'M': 2021
+        }
+
+        // 'number to month' for å konvertere del av serienummer til måned
+        const n2m = {
+            1: 1, 2: 2, 3: 3, 4: 4, 5: 5, 6: 6, 7: 7, 8: 8, 9: 9, 'A': 10, 'B': 11, 'C': 12
+        }
+
     }
 
 </script>
