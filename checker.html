@@ -25,15 +25,16 @@
     // checker function
     function checker(){
 
-        var today = new Date()
+        // dagens dato 
+        var today = new Date() 
 
         var serial = document.getElementById('serial').value
         serial = serial.toUpperCase()
 
-        // if(serial.length != 20 || serial.length != 13){
-        //     alert('Dette ser ikke ut som et serienummer: '+serial)
-        //     return false
-        // }
+        if(serial.length != 20 || serial.length != 13){
+            alert('Dette ser ikke ut som et serienummer: '+serial)
+            return false
+        }
 
         // Q22 serienummere er 20 symboler langt
         if(serial.length == 20){
@@ -68,6 +69,7 @@
             var diff = today - q22
             diff = diff / (1000 * 3600 * 24 * 365)
 
+            // avgjør om det er over et år eller ikke
             if (diff < 2){
                 document.getElementById('info').innerHTML = "Dekoderen er produsert: <b>"+q22Month+"/"+q22Year+"</b> og er innenfor garantien."
             } else {
@@ -78,14 +80,18 @@
         // Serienummeret for hjemmesentraler er 13 symboler langt
         if(serial.length == 13){
 
+            // henter ut år og måned. Må ikke konverteres på hjemmesentraler
             var hsYear = serial.substring(1, 2)
             var hsMonth = serial.substring(5, 6)
 
+            // regner ut differansen mellom dagens dato og produksjonsdato
             hs = new Date(hsYear, hsMonth-1, 01)
             var diff = today - hs
 
+            // resultat i milisekunder deles for å få år
             diff = diff / (1000 * 3600 * 24 * 365)
 
+            // avgjør om det er over et år eller ikke
             if (diff < 2){
                 document.getElementById('info').innerHTML = "Hjemmesentralen er produsert: <b>"+hsMonth+"/20"+hsYear+"</b> og er innenfor garantien."
             } else {
