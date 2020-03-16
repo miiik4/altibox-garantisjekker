@@ -26,6 +26,7 @@ function checker() {
     if (serial.length == 20) {
         // 'letters to years' for å konvertere del av serienummer til år
         const l2y = [];
+        l2y["G"] = 2016;
         l2y["H"] = 2017;
         l2y["J"] = 2018;
         l2y["K"] = 2019;
