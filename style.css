@@ -1,0 +1,18 @@
+html,
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+form {
+    padding: 10px 30px 10px 30px;
+    max-width: 600px;
+}
+input {
+    padding: 10px;
+}
+#serial {
+    width: 85%;
+}
+#submit {
+    width: calc(15% - 5px);
+}
