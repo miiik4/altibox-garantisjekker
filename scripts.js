@@ -6,6 +6,7 @@ window.onload = () => {
 // sørger for at formet ikke blir submittet
 document.getElementById("form").addEventListener("submit", e => {
     e.preventDefault();
+    console.log("was run");
 });
 
 // checker function
