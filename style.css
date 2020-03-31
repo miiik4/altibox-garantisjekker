@@ -28,3 +28,8 @@ input {
 #reset {
     margin-top: 10px;
 }
+
+#export {
+    float: right;
+    margin-top: 10px;
+}
