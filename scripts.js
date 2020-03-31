@@ -2,6 +2,7 @@
 window.onload = () => {
     document.getElementById("serial").focus();
 
+    // laster inn historikk første gang
     loadData();
 };
 
@@ -112,25 +113,35 @@ function checker() {
         }
     }
 
+    // kaller på storeData funksjon som tar serial og status
     storeData(serial, status);
 }
 
 function storeData(input, status) {
+    // henter gammel historikk
     let history = localStorage.getItem("history");
+
+    // if else så det ikke printes ut null når det ikke finnes noe historikk
     if (history === null) {
         history = input + " - " + status + "\n";
     } else {
         history = input + " - " + status + "\n" + history;
     }
+
+    // setter localstorage
     localStorage.setItem("history", history);
+
+    // oppdaterer historikk
     document.getElementById("history").value = history;
 }
 
+// henter og printer til tekstboks
 function loadData() {
     var history = localStorage.getItem("history");
     document.getElementById("history").value = history;
 }
 
+// fjerner localstorage
 function resetHistory() {
     localStorage.removeItem("history");
 }
