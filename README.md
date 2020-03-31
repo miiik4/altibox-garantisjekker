@@ -6,3 +6,5 @@ Støtter:
 - FMG
 - VMG
 - Q22
+
+Historikk kan eksporteres til .csv format og lagres lokalt.
