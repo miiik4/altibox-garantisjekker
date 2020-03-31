@@ -1,2 +1,8 @@
-# altibox-garantisjekker
-Garantisjekker for Altibox hjemmesentraler og dekodere
+# Altibox garantisjekker
+Gjør det mulig å sjekke garanti på hjemmesentraler og dekodere.
+
+Støtter:
+> P2812/AC
+> FMG
+> VMG
+> Q22
