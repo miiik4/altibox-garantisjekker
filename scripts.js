@@ -1,6 +1,8 @@
 // passer på at serial input blir valgt etter siden laster inn
 window.onload = () => {
     document.getElementById("serial").focus();
+
+    loadData();
 };
 
 // sørger for at formet ikke blir submittet
@@ -54,8 +56,12 @@ function checker() {
         var diff = today - q22;
         diff = diff / (1000 * 3600 * 24 * 365);
 
+        // deklarer historie og status variabel
+        var history, status;
+
         // avgjør om det er over et år eller ikke
         if (diff < 2) {
+            status = "OK";
             document.getElementById("info").innerHTML =
                 "Dekoderen er produsert: <b>" +
                 q22Month +
@@ -63,6 +69,7 @@ function checker() {
                 q22Year +
                 "</b> og er innenfor garantien.";
         } else {
+            status = "Ikke OK";
             document.getElementById("info").innerHTML =
                 "Dekoderen er produsert: <b>" +
                 q22Month +
@@ -87,6 +94,7 @@ function checker() {
 
         // avgjør om det er over et år eller ikke
         if (diff < 2) {
+            status = "OK";
             document.getElementById("info").innerHTML =
                 "Hjemmesentralen er produsert: <b>" +
                 hsMonth +
@@ -94,6 +102,7 @@ function checker() {
                 hsYear +
                 "</b> og er innenfor garantien.";
         } else {
+            status = "Ikke OK";
             document.getElementById("info").innerHTML =
                 "Hjemmesentralen er produsert: <b>" +
                 hsMonth +
@@ -103,15 +112,25 @@ function checker() {
         }
     }
 
-    // legger til i loggen
-    if (document.getElementsByTagName("br").length < 10) {
-        var history = document.getElementById("history").innerHTML;
-        history = serial + "<br/>" + history;
-        document.getElementById("history").innerHTML = history;
-    } else {
-        // midlertidig løsning når over 10 serienummer
-        document.getElementById("history").innerHTML = "";
-    }
+    storeData(serial, status);
+}
 
-    document.getElementById("serial").value = "";
+function storeData(input, status) {
+    let history = localStorage.getItem("history");
+    if (history === null) {
+        history = input + " - " + status + "\n";
+    } else {
+        history = input + " - " + status + "\n" + history;
+    }
+    localStorage.setItem("history", history);
+    document.getElementById("history").value = history;
+}
+
+function loadData() {
+    var history = localStorage.getItem("history");
+    document.getElementById("history").value = history;
+}
+
+function resetHistory() {
+    localStorage.removeItem("history");
 }

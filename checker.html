@@ -1,5 +1,6 @@
-<html>
+<html lang="no">
     <head>
+        <meta charset="utf-8" />
         <title>Garantisjekker</title>
         <link rel="stylesheet" type="text/css" href="style.css" />
     </head>
@@ -18,7 +19,19 @@
             />
             <input type="submit" name="submit" id="submit" value="Sjekk" />
             <p id="info"></p>
-            <p id="history"></p>
+            <textarea
+                name="history"
+                id="history"
+                placeholder="Historikk.."
+                rows="10"
+            ></textarea>
+            <input
+                onclick="resetHistory()"
+                type="reset"
+                name="reset"
+                id="reset"
+                value="Slett historikk"
+            />
         </form>
 
         <script type="text/javascript" src="scripts.js"></script>
