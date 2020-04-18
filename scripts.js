@@ -7,7 +7,7 @@ window.onload = () => {
 };
 
 // sørger for at formet ikke blir submittet
-document.getElementById("form").addEventListener("submit", e => {
+document.getElementById("form").addEventListener("submit", (e) => {
     e.preventDefault();
 });
 
@@ -115,6 +115,8 @@ function checker() {
 
     // kaller på storeData funksjon som tar serial og status
     storeData(serial, status);
+    // fjerner data i scannefelt
+    document.getElementById("serial").value = "";
 }
 
 function storeData(input, status) {
