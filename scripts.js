@@ -139,11 +139,31 @@ function storeData(input, status) {
 
 // henter og printer til tekstboks
 function loadData() {
-    var history = localStorage.getItem("history");
+    let history = localStorage.getItem("history");
     document.getElementById("history").value = history;
 }
 
 // fjerner localstorage
 function resetHistory() {
     localStorage.removeItem("history");
+}
+
+// exporter historikk til csv fil
+function exportCSV() {
+    let history = localStorage.getItem("history");
+    // endrer alle - til ,
+    history = history.replace(/-/g, ",");
+    // legger opp csv filen
+    let csvFile = "data:text/csv;charset=utf-8," + history;
+    // encoder filen
+    var encodedUri = encodeURI(csvFile);
+
+    // legger inn en usynlig nedlastningslink
+    var link = document.createElement("a");
+    link.setAttribute("href", encodedUri);
+    link.setAttribute("download", "historikk.csv");
+
+    document.body.appendChild(link);
+    // klikker på linken for å laste ned
+    link.click();
 }
